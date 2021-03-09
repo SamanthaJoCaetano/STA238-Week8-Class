@@ -1,0 +1,61 @@
+---
+title: "Week 8 Class"
+author: "Samantha-Jo Caetano"
+date: "March 10 or 11"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+First let's load in the Starbucks data. 
+
+```{r, include=FALSE}
+starbucks<-read_csv("starbucks.csv")
+```
+
+
+## For all Pastries
+
+Now, let's look at the mean, standard deviation and sample size of the calorie variable.
+
+```{r}
+starbucks %>%   
+  summarise(
+  mean_cal = mean(calories),
+  sd_cal = sd(calories),
+  n_cal = n())
+
+```
+
+
+Or in base R:
+
+```{r}
+xbar_cal <- mean(starbucks$calories)
+s_cal <- sd(starbucks$calories)
+n_cal <- length(starbucks$calories)
+```
+
+The 95% CI for mean calories is ......
+
+
+## For Petite Pastries only
+
+```{r}
+## Use some type of filtering to get only type=="petite"
+
+
+```
+
+```{r}
+## Now calculate the mean, sd and sample size of the petite pastry calories.
+
+
+```
+
+
+The 95% CI for mean calories in petite pastries is .......
