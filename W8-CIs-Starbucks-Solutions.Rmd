@@ -1,0 +1,59 @@
+---
+title: "Week 8 Class"
+author: "Samantha-Jo Caetano"
+date: "March 10 or 11"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+First let's load in the Starbucks data. 
+
+```{r, include=FALSE}
+starbucks<-read_csv("starbucks.csv")
+```
+
+
+## For all Pastries
+
+Now, let's look at the mean, standard deviation and sample size of the calorie variable.
+
+```{r}
+starbucks %>%   
+  summarise(
+  mean_cal = mean(calories),
+  sd_cal = sd(calories),
+  n_cal = n())
+
+```
+
+
+Or in base R:
+
+```{r}
+xbar_cal <- mean(starbucks$calories)
+s_cal <- sd(starbucks$calories)
+n_cal <- length(starbucks$calories)
+```
+
+The 95% CI for mean calories is `r xbar_cal - qnorm(0.975)*s_cal/n_cal` to `r xbar_cal + qnorm(0.975)*s_cal/n_cal`. Here we are assuming that $n=77$ is relatively large.
+
+
+## For Petite Pastries only
+
+```{r}
+starbucks_petite <- starbucks %>% filter(type == "petite")
+```
+
+```{r}
+xbar_cal_p <- mean(starbucks_petite$calories)
+s_cal_p <- sd(starbucks_petite$calories)
+n_cal_p <- length(starbucks_petite$calories)
+```
+
+
+The 95% CI for mean calories in petite pastries is `r xbar_cal_p - qt(0.975, n_cal_p-1)*s_cal_p/n_cal_p` to `r xbar_cal_p + qt(0.975, n_cal_p-1)*s_cal_p/n_cal_p`. Here we are assuming that $n=$ `r n_cal_p-1` is relatively small.
